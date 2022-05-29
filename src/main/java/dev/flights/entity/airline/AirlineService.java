@@ -1,4 +1,4 @@
-package com.flights.entity.airline;
+package dev.flights.entity.airline;
 
 import java.util.List;
 

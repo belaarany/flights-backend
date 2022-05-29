@@ -1,7 +1,7 @@
-package com.flights.controller.airline;
+package dev.flights.controller.airline;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flights.entity.airline.AirlineService;
+import dev.flights.entity.airline.AirlineService;
 import com.github.javafaker.Faker;
 
 import org.junit.jupiter.api.Test;

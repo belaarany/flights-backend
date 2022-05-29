@@ -1,8 +1,8 @@
-package com.flights.entity.airline;
+package dev.flights.entity.airline;
 
 import java.util.List;
 
-import com.flights.entity.airline.AirlineRepository;
+import dev.flights.entity.airline.AirlineRepository;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

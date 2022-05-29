@@ -1,10 +1,13 @@
-package com.flights.controller.airline;
+package dev.flights.controller.airline;
+
+import java.util.List;
 
 import javax.validation.Valid;
 
-import com.flights.controller.airline.AirlineRequests.CreateAirlineRequest;
-import com.flights.entity.airline.Airline;
-import com.flights.entity.airline.AirlineService;
+import dev.flights.controller.airline.AirlineRequests.CreateAirlineRequest;
+import dev.flights.entity.airline.Airline;
+import dev.flights.entity.airline.AirlineService;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +34,12 @@ public class AirlineController {
         Airline airline = airlineService.createAirline(airlineEntity);
 
         return ResponseEntity.ok(airline);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Airline>> listAirlines() {
+        List<Airline> airlines = airlineService.listAirlines();
+
+        return ResponseEntity.ok(airlines);
     }
 }

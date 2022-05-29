@@ -1,4 +1,4 @@
-package com.flights.controller.airline;
+package dev.flights.controller.airline;
 
 import javax.validation.constraints.NotNull;
 

@@ -1,4 +1,4 @@
-package com.flights.entity.airline;
+package dev.flights.entity.airline;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import com.flights.entity.airline.Airline;
-import com.flights.entity.airline.AirlineRepository;
-import com.flights.entity.airline.AirlineService;
+import dev.flights.entity.airline.Airline;
+import dev.flights.entity.airline.AirlineRepository;
+import dev.flights.entity.airline.AirlineService;
 import com.github.javafaker.Faker;
 
 import org.junit.jupiter.api.Test;
