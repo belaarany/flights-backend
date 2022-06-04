@@ -10,11 +10,6 @@ public class AirlineService {
     @Autowired
     private AirlineRepository airlineRepository;
 
-    public Airline createAirline(Airline airline) {
-        Airline savedAirline = airlineRepository.save(airline);
-        return savedAirline;
-    }
-
     public List<Airline> listAirlines() {
         List<Airline> airlines = airlineRepository.findAll();
         return airlines;
