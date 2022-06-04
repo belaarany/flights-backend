@@ -1,21 +1,21 @@
 package dev.flights.entity.airline;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import dev.flights.entity.airline.Airline;
-import dev.flights.entity.airline.AirlineRepository;
-import dev.flights.entity.airline.AirlineService;
-import com.github.javafaker.Faker;
-
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
+import org.junit.jupiter.api.function.ThrowingSupplier;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -31,23 +31,6 @@ public class AirlineServiceTest {
     // private Faker faker = new Faker();
 
     @Test
-    @Disabled
-    void canCreateAirline() {
-        // // given
-        // Airline airlineEntity = Airline.builder()
-        //         .name(faker.company().name())
-        //         .logoUrl(faker.company().logo())
-        //         .build();
-
-        // // when
-        // when(repository.save(any(Airline.class))).thenReturn(airlineEntity);
-        // Airline airline = service.createAirline(airlineEntity);
-
-        // // then
-        // assertThat(airline).isEqualTo(airlineEntity);
-    }
-
-    @Test
     void canListAirlines() {
         // given
         List<Airline> airlineEntities = IntStream.range(0, 5).mapToObj(
@@ -56,9 +39,36 @@ public class AirlineServiceTest {
 
         // when
         when(repository.findAll()).thenReturn(airlineEntities);
-        List<Airline> airlines = repository.findAll();
+        List<Airline> airlines = service.listAirlines();
 
         // then
         assertThat(airlines.size()).isEqualTo(5);
+    }
+
+    @Test
+    void canFindAirlineById() {
+        // given
+        Airline airlineEntity = Airline.builder().build();
+
+        // when
+        when(repository.findById(any())).thenReturn(Optional.of(airlineEntity));
+        ThrowingSupplier<Airline> fn = () -> service.getAirlineById(airlineEntity.getId());
+
+        // then
+        assertDoesNotThrow(fn);
+    }
+
+    @Test
+    void cannotFindAirlineById() {
+        // given
+        // -
+
+        // when
+        when(repository.findById(any())).thenReturn(Optional.empty());
+        Executable fn = () -> service.getAirlineById(UUID.randomUUID());
+
+        // then
+        Exception e = assertThrows(Exception.class, fn);
+        assertThat(e.getMessage()).isEqualTo("Airline does not exist");
     }
 }

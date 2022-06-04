@@ -10,10 +10,10 @@ public class FlightService {
     @Autowired
     private FlightRepository flightRepository;
 
-    // public Airline createAirline(Airline airline) {
-    //     Airline savedAirline = airlineRepository.save(airline);
-    //     return savedAirline;
-    // }
+    public Flight createFlight(Flight flight) {
+        Flight savedFlight = flightRepository.save(flight);
+        return savedFlight;
+    }
 
     public List<Flight> listFlights() {
         List<Flight> flights = flightRepository.findAll();

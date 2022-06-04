@@ -1,6 +1,9 @@
 package dev.flights.bootstrap;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -33,54 +36,77 @@ public class InitialData implements ApplicationRunner {
 	@Profile("dev")
 	@Bean
 	public void run(ApplicationArguments args) {
-		Airline airline_1 = airlineRepository.save(
-				Airline.builder()
-						.name("Wizz Air")
-						.logoUrl("https://gccoupons.com/wp-content/uploads/2020/08/Wizz-Air-150x150.png")
-						.build());
-
-		Airplane airline_1_airplane_1 = airplaneRepository.save(
-				Airplane.builder()
-						.type("RX-500")
-						.seats(100)
-						.airline(airline_1)
-						.build());
-
-		airplaneRepository.save(
-				Airplane.builder()
-						.type("WK-73")
-						.seats(50)
-						.airline(airline_1)
-						.build());
-
-		Airline airline_2 = airlineRepository.save(
-				Airline.builder()
-						.name("Wizz Air 2")
-						.logoUrl("https://gccoupons.com/wp-content/uploads/2020/08/Wizz-Air-150x150.png")
-						.build());
-
-		airplaneRepository.save(
-				Airplane.builder()
-						.type("FFKG-500")
-						.seats(200)
-						.airline(airline_2)
-						.build());
-
-		airplaneRepository.save(
-				Airplane.builder()
-						.type("BB-9")
-						.seats(6000)
-						.airline(airline_2)
-						.build());
-
-		flightRepository.save(
-				Flight.builder()
-						.arrivalAt(LocalDateTime.of(2022, 01, 01, 0, 0, 0))
-						.departureAt(LocalDateTime.of(2022, 01, 01, 0, 0, 0))
-						.airline(airline_1)
-						.airplane(airline_1_airplane_1)
-						.build());
+		List<Airline> airlines = addAirlines();
+		List<Airplane> airplanes = addAirplanes(airlines);
+		airlines = airlineRepository.findAll();
+		List<Flight> flights = addFlights(airlines, airplanes);
 
 		log.info("Initial data has been injected into the database");
+	}
+
+	public List<Airline> addAirlines() {
+		List<Airline> entities = new ArrayList<>();
+
+		entities.add(Airline.builder()
+				.name("Wizz Air")
+				.logoUrl("https://gccoupons.com/wp-content/uploads/2020/08/Wizz-Air-150x150.png")
+				.build());
+
+		entities.add(Airline.builder()
+				.name("Wizz Air 2")
+				.logoUrl("https://gccoupons.com/wp-content/uploads/2020/08/Wizz-Air-150x150.png")
+				.build());
+
+		return airlineRepository.saveAllAndFlush(entities);
+	}
+
+	public List<Airplane> addAirplanes(List<Airline> airlines) {
+		List<Airplane> entities = new ArrayList<>();
+
+		entities.add(Airplane.builder()
+				.type("RX-500")
+				.seats(100)
+				.airline(airlines.get(0))
+				.build());
+
+		entities.add(Airplane.builder()
+				.type("HRC-12")
+				.seats(1000)
+				.airline(airlines.get(0))
+				.build());
+
+		entities.add(Airplane.builder()
+				.type("KEU-345")
+				.seats(200)
+				.airline(airlines.get(1))
+				.build());
+
+		entities.add(Airplane.builder()
+				.type("TRX-510")
+				.seats(150)
+				.airline(airlines.get(1))
+				.build());
+
+		return airplaneRepository.saveAllAndFlush(entities);
+	}
+
+	public List<Flight> addFlights(List<Airline> airlines, List<Airplane> airplanes) {
+		List<Flight> entities = new ArrayList<>();
+
+		entities.add(Flight.builder()
+				.arrivalAt(LocalDateTime.of(2022, 01, 01, 0, 0, 0))
+				.departureAt(LocalDateTime.of(2022, 01, 01, 0, 0, 0))
+				.airline(airlines.get(0))
+				.airplane(airlines.get(0).getAirplanes().get(0))
+				.build());
+
+		entities.add(Flight.builder()
+				.arrivalAt(LocalDateTime.of(2022, 01, 02, 0, 0, 0))
+				.departureAt(LocalDateTime.of(2022, 01, 02, 0, 0, 0))
+				.airline(airlines.get(0))
+				.airplane(airlines.get(0).getAirplanes().get(0))
+				.build());
+
+		return flightRepository.saveAllAndFlush(entities);
 	}
 }
