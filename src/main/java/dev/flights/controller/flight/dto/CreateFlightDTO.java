@@ -26,4 +26,12 @@ public class CreateFlightDTO {
     @NotNull
     @JsonProperty("airline_id")
     private UUID airlineId;
+
+    @NotNull
+    @JsonProperty("departure_airport_id")
+    private UUID departureAirportId;
+
+    @NotNull
+    @JsonProperty("arrival_airport_id")
+    private UUID arrivalAirportId;
 }

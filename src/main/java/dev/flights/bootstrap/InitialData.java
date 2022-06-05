@@ -18,11 +18,16 @@ import dev.flights.entity.airplane.Airplane;
 import dev.flights.entity.airplane.AirplaneRepository;
 import dev.flights.entity.flight.Flight;
 import dev.flights.entity.flight.FlightRepository;
+import dev.flights.entity.airport.Airport;
+import dev.flights.entity.airport.AirportRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
 public class InitialData implements ApplicationRunner {
+
+	@Autowired
+	private AirportRepository airportRepository;
 
 	@Autowired
 	private AirlineRepository airlineRepository;
@@ -36,12 +41,33 @@ public class InitialData implements ApplicationRunner {
 	@Profile("dev")
 	@Bean
 	public void run(ApplicationArguments args) {
+		List<Airport> airports = addAirports();
 		List<Airline> airlines = addAirlines();
 		List<Airplane> airplanes = addAirplanes(airlines);
 		airlines = airlineRepository.findAll();
-		List<Flight> flights = addFlights(airlines, airplanes);
+		List<Flight> flights = addFlights(airports, airlines, airplanes);
 
 		log.info("Initial data has been injected into the database");
+	}
+
+	public List<Airport> addAirports() {
+		List<Airport> entities = new ArrayList<>();
+
+		entities.add(Airport.builder()
+				.name("Debrecen Reptér")
+				.iataCode("HU-DEB")
+				.country("Hungary")
+				.city("Debrecen")
+				.build());
+
+		entities.add(Airport.builder()
+				.name("Liszt Ferenc Reptér")
+				.iataCode("HU-BUD")
+				.country("Hungary")
+				.city("Budapest")
+				.build());
+
+		return airportRepository.saveAllAndFlush(entities);
 	}
 
 	public List<Airline> addAirlines() {
@@ -72,12 +98,14 @@ public class InitialData implements ApplicationRunner {
 		entities.add(Airplane.builder()
 				.type("HRC-12")
 				.seats(1000)
+				.hasWifi(true)
 				.airline(airlines.get(0))
 				.build());
 
 		entities.add(Airplane.builder()
 				.type("KEU-345")
 				.seats(200)
+				.hasWifi(true)
 				.airline(airlines.get(1))
 				.build());
 
@@ -90,7 +118,7 @@ public class InitialData implements ApplicationRunner {
 		return airplaneRepository.saveAllAndFlush(entities);
 	}
 
-	public List<Flight> addFlights(List<Airline> airlines, List<Airplane> airplanes) {
+	public List<Flight> addFlights(List<Airport> airports, List<Airline> airlines, List<Airplane> airplanes) {
 		List<Flight> entities = new ArrayList<>();
 
 		entities.add(Flight.builder()
@@ -98,6 +126,8 @@ public class InitialData implements ApplicationRunner {
 				.departureAt(LocalDateTime.of(2022, 01, 01, 0, 0, 0))
 				.airline(airlines.get(0))
 				.airplane(airlines.get(0).getAirplanes().get(0))
+				.departureAirport(airports.get(0))
+				.arrivalAirport(airports.get(1))
 				.build());
 
 		entities.add(Flight.builder()
@@ -105,6 +135,8 @@ public class InitialData implements ApplicationRunner {
 				.departureAt(LocalDateTime.of(2022, 01, 02, 0, 0, 0))
 				.airline(airlines.get(0))
 				.airplane(airlines.get(0).getAirplanes().get(0))
+				.departureAirport(airports.get(1))
+				.arrivalAirport(airports.get(0))
 				.build());
 
 		return flightRepository.saveAllAndFlush(entities);

@@ -25,6 +25,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.Builder.Default;
 
 @Builder
 @AllArgsConstructor
@@ -48,6 +49,10 @@ public class Airplane {
 
     @Column(nullable = false)
     private Integer seats;
+
+    @Column(nullable = false, name = "has_wifi")
+    @Default
+    private Boolean hasWifi = false;
 
     @ManyToOne
     @JsonIgnoreProperties("airplanes")
