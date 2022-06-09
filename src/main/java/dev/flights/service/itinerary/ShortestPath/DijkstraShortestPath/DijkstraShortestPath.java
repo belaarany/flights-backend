@@ -4,21 +4,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 import dev.flights.service.itinerary.ShortestPath.Graph;
 import dev.flights.service.itinerary.ShortestPath.Node;
 import dev.flights.service.itinerary.ShortestPath.Edge;
 import dev.flights.service.itinerary.ShortestPath.ShortestPathContract;
+import dev.flights.service.itinerary.ShortestPath.Visit;
 import lombok.Data;
+import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @Data
 @Slf4j
 public class DijkstraShortestPath implements ShortestPathContract {
-    private List<Node> visited = new ArrayList<>();
+    private Set<Node> visited = new HashSet<>();
+    private Set<Node> irrelevantNodes = new HashSet<>();
+
+    @Getter
     private Map<Node, Visit> visits = new HashMap<>();
 
     @Setter
@@ -33,41 +41,39 @@ public class DijkstraShortestPath implements ShortestPathContract {
 
         graph.getNodes().forEach(node -> visits.put(node, new Visit()));
         visits.get(startNode).setDistance(0);
+        visits.get(startNode).setTargetNode(startNode);
 
         visitNode(startNode);
 
         log.debug("Visited all nodes");
-        visits.forEach((node, visit) -> log
-                .debug(String.format("Node: %S | Distance: %s", node.getName(), visit.getDistance())));
+        printVisits();
     }
 
-    public List<Node> getBestPath() {
-        List<Node> path = new ArrayList<Node>();
-        path.addAll(getPathFromNodes(path, endNode));
+    public List<Visit> getBestPath() {
+        List<Visit> path = new ArrayList<Visit>();
+        path.addAll(getPathFromVisit(path, visits.get(endNode)));
         Collections.reverse(path);
 
         if (path.size() <= 1) {
             return new ArrayList<>();
         }
 
-        List<String> pathStr = new ArrayList<>();
-        path.forEach(node -> pathStr.add(node.getName()));
-        log.debug(String.join(" --> ", pathStr));
+        printPath(path);
 
         return path;
     }
 
-    private List<Node> getPathFromNodes(List<Node> previousNodes, Node currentNode) {
-        List<Node> path = new ArrayList<>(previousNodes);
-        path.add(currentNode);
+    private List<Visit> getPathFromVisit(List<Visit> previousVisits, Visit currentVisit) {
+        List<Visit> path = new ArrayList<>(previousVisits);
+        path.add(currentVisit);
 
-        Node fromNode = visits.get(currentNode).getFromNode();
+        Visit fromVisit = visits.get(currentVisit.getSourceNode());
 
-        if (fromNode == null) {
+        if (fromVisit == null) {
             return path;
         }
 
-        return getPathFromNodes(path, fromNode);
+        return getPathFromVisit(path, fromVisit);
     }
 
     private void visitNode(Node node) {
@@ -83,6 +89,11 @@ public class DijkstraShortestPath implements ShortestPathContract {
             return;
         }
 
+        if (irrelevantNodes.contains(node)) {
+            log.debug("Node is irrelevant");
+            return;
+        }
+
         exploreNeighbors(node, graph.getNodeEdges(node));
 
         visited.add(node);
@@ -90,10 +101,12 @@ public class DijkstraShortestPath implements ShortestPathContract {
         List<Edge> edges = graph.getNodeEdges(node);
         Collections.sort(edges, new Comparator<Edge>() {
             public int compare(Edge l, Edge r) {
-                return visits.get(l.getTargetNode()).getDistance() - visits.get(r.getTargetNode()).getDistance();
+                Integer ld = visits.get(graph.getIsDirected() ? l.getTargetNode() : l.getOppositeNode(node)).getDistance();
+                Integer rd = visits.get(graph.getIsDirected() ? r.getTargetNode() : r.getOppositeNode(node)).getDistance();
+                return ld - rd;
             }
         });
-        edges.forEach(edge -> visitNode(edge.getTargetNode()));
+        edges.forEach(edge -> visitNode(graph.getIsDirected() ? edge.getTargetNode() : edge.getOppositeNode(node)));
 
         return;
     }
@@ -101,24 +114,70 @@ public class DijkstraShortestPath implements ShortestPathContract {
     private void exploreNeighbors(Node node, List<Edge> edges) {
         log.debug(String.format("Exploring neighbors for node %s", node.getName()));
 
-        Integer fromTownDist = visits.get(node).getDistance();
+        Integer sourceNodeDistance = visits.get(node).getDistance();
 
-        edges.forEach(edge -> exploreNeighbor(node, edge.getTargetNode(), edge.getWeight(), fromTownDist));
+        edges.forEach(edge -> exploreNeighbor(node, edge, sourceNodeDistance));
     }
 
-    private void exploreNeighbor(Node fromNode, Node node, Integer neighborDistance, Integer fromTownDist) {
-        if (fromNode.equals(node)) {
+    private void exploreNeighbor(Node sourceNode, Edge edge, Integer sourceNodeDistance) {
+        Node targetNode = graph.getIsDirected() ? edge.getTargetNode() : edge.getOppositeNode(sourceNode);
+        Integer edgeDistance = edge.getWeight();
+
+        if (sourceNode.equals(targetNode)) {
             return;
         }
 
-        log.debug(String.format("Exploring neighbor %s", node.getName()));
+        log.debug(String.format("Exploring neighbor %s", targetNode.getName()));
+        printVisits();
 
-        Integer currTownDist = visits.get(node).getDistance();
-        Integer nextTownDist = fromTownDist + neighborDistance;
+        Integer currentNodeDistance = visits.get(targetNode).getDistance();
+        Integer nextNodeDistance = sourceNodeDistance + edgeDistance;
 
-        if (currTownDist == -1 || nextTownDist < currTownDist) {
-            visits.get(node).setDistance(nextTownDist);
-            visits.get(node).setFromNode(fromNode);
+        if (currentNodeDistance == -1 || nextNodeDistance < currentNodeDistance) {
+            if (targetNode.getMaxWeight() != null && targetNode.getMaxWeight() < nextNodeDistance) {
+                irrelevantNodes.add(targetNode);
+            }
+            if (targetNode.getMinWeight() != null && targetNode.getMinWeight() > nextNodeDistance) {
+                irrelevantNodes.add(targetNode);
+            }
+            
+            if (!irrelevantNodes.contains(targetNode)) {
+                visits.get(targetNode).setDistance(nextNodeDistance);
+                visits.get(targetNode).setSourceNode(sourceNode);
+                visits.get(targetNode).setTargetNode(targetNode);
+                visits.get(targetNode).setThroughEdge(edge);
+            }
         }
+
+        log.debug("---");
+        printVisits();
+        log.debug("======");
+    }
+
+    private void printVisits() {
+        visits.forEach((node, visit) -> {
+            List<String> str = new ArrayList<>();
+            str.add(node.getName());
+            str.add(visit.getDistance().toString());
+            Optional.ofNullable(visit.getSourceNode())
+                .map(_visit -> _visit.getName())
+                .ifPresent(nodeName ->
+                    str.add(nodeName)    
+                );
+            log.debug(String.join(" | ", str));
+        });
+    }
+
+    private void printPath(List<Visit> path) {
+        List<String> pathStr = new ArrayList<>();
+        path.forEach(visit -> {
+            Optional.ofNullable(visit.getThroughEdge())
+                .map(_edge -> _edge.getName())
+                .ifPresent(_edgeName ->
+                    pathStr.add(String.format("Edge %s", _edgeName))    
+                );
+            pathStr.add(String.format("Node %s", visit.getTargetNode().getName()));
+        });
+        log.debug(String.join(" --> ", pathStr));
     }
 }
