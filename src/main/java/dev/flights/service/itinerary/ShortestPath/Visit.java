@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Visit {
-    public Integer distance = -1;
+    public Double distance = -1.0;
     public Node sourceNode;
     public Node targetNode;
     public Edge throughEdge;

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Builder.Default;
 
 @Data
 @AllArgsConstructor
@@ -12,12 +13,16 @@ import lombok.RequiredArgsConstructor;
 @Builder
 public class Edge {
     private String name;
+    
     @NonNull
     private Node sourceNode;
+
     @NonNull
     private Node targetNode;
+
     @NonNull
-    private Integer weight;
+    @Default
+    private Double weight = 0.0;
 
     public Node getOppositeNode(Node node) {
         return sourceNode.equals(node) ? targetNode : sourceNode;

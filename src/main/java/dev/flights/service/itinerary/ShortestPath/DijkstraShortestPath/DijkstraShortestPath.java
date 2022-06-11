@@ -40,7 +40,7 @@ public class DijkstraShortestPath implements ShortestPathContract {
         log.debug("Starting");
 
         graph.getNodes().forEach(node -> visits.put(node, new Visit()));
-        visits.get(startNode).setDistance(0);
+        visits.get(startNode).setDistance(0.0);
         visits.get(startNode).setTargetNode(startNode);
 
         visitNode(startNode);
@@ -101,9 +101,9 @@ public class DijkstraShortestPath implements ShortestPathContract {
         List<Edge> edges = graph.getNodeEdges(node);
         Collections.sort(edges, new Comparator<Edge>() {
             public int compare(Edge l, Edge r) {
-                Integer ld = visits.get(graph.getIsDirected() ? l.getTargetNode() : l.getOppositeNode(node)).getDistance();
-                Integer rd = visits.get(graph.getIsDirected() ? r.getTargetNode() : r.getOppositeNode(node)).getDistance();
-                return ld - rd;
+                Double ld = visits.get(graph.getIsDirected() ? l.getTargetNode() : l.getOppositeNode(node)).getDistance();
+                Double rd = visits.get(graph.getIsDirected() ? r.getTargetNode() : r.getOppositeNode(node)).getDistance();
+                return (int) (ld - rd);
             }
         });
         edges.forEach(edge -> visitNode(graph.getIsDirected() ? edge.getTargetNode() : edge.getOppositeNode(node)));
@@ -114,14 +114,14 @@ public class DijkstraShortestPath implements ShortestPathContract {
     private void exploreNeighbors(Node node, List<Edge> edges) {
         log.debug(String.format("Exploring neighbors for node %s", node.getName()));
 
-        Integer sourceNodeDistance = visits.get(node).getDistance();
+        Double sourceNodeDistance = visits.get(node).getDistance();
 
         edges.forEach(edge -> exploreNeighbor(node, edge, sourceNodeDistance));
     }
 
-    private void exploreNeighbor(Node sourceNode, Edge edge, Integer sourceNodeDistance) {
+    private void exploreNeighbor(Node sourceNode, Edge edge, Double sourceNodeDistance) {
         Node targetNode = graph.getIsDirected() ? edge.getTargetNode() : edge.getOppositeNode(sourceNode);
-        Integer edgeDistance = edge.getWeight();
+        Double edgeDistance = edge.getWeight();
 
         if (sourceNode.equals(targetNode)) {
             return;
@@ -130,8 +130,8 @@ public class DijkstraShortestPath implements ShortestPathContract {
         log.debug(String.format("Exploring neighbor %s", targetNode.getName()));
         printVisits();
 
-        Integer currentNodeDistance = visits.get(targetNode).getDistance();
-        Integer nextNodeDistance = sourceNodeDistance + edgeDistance;
+        Double currentNodeDistance = visits.get(targetNode).getDistance();
+        Double nextNodeDistance = sourceNodeDistance + edgeDistance;
 
         if (currentNodeDistance == -1 || nextNodeDistance < currentNodeDistance) {
             if (targetNode.getMaxWeight() != null && targetNode.getMaxWeight() < nextNodeDistance) {

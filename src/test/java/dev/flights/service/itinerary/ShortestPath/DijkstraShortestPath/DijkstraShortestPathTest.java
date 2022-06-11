@@ -31,18 +31,18 @@ public class DijkstraShortestPathTest {
         Node nodeE = new Node("E");
         Node nodeF = new Node("F");
 
-        graph.addEdge(new Edge(nodeA, nodeB, 10));
-        graph.addEdge(new Edge(nodeA, nodeC, 15));
+        graph.addEdge(new Edge(nodeA, nodeB, 10.0));
+        graph.addEdge(new Edge(nodeA, nodeC, 15.0));
 
-        graph.addEdge(new Edge(nodeB, nodeF, 15));
-        graph.addEdge(new Edge(nodeB, nodeD, 12));
+        graph.addEdge(new Edge(nodeB, nodeF, 15.0));
+        graph.addEdge(new Edge(nodeB, nodeD, 12.0));
 
-        graph.addEdge(new Edge(nodeC, nodeE, 10));
+        graph.addEdge(new Edge(nodeC, nodeE, 10.0));
 
-        graph.addEdge(new Edge(nodeD, nodeF, 1));
-        graph.addEdge(new Edge(nodeD, nodeE, 2));
+        graph.addEdge(new Edge(nodeD, nodeF, 1.0));
+        graph.addEdge(new Edge(nodeD, nodeE, 2.0));
 
-        graph.addEdge(new Edge(nodeF, nodeE, 5));
+        graph.addEdge(new Edge(nodeF, nodeE, 5.0));
 
         graph.addNodes(Arrays.asList(nodeA, nodeB, nodeC, nodeD, nodeE, nodeF));
 
@@ -78,19 +78,19 @@ public class DijkstraShortestPathTest {
         Node nodeD = new Node("D");
         Node nodeE = new Node("E");
 
-        graph.addEdge(new Edge(nodeA, nodeB, 10));
-        graph.addEdge(new Edge(nodeA, nodeE, 3));
+        graph.addEdge(new Edge(nodeA, nodeB, 10.0));
+        graph.addEdge(new Edge(nodeA, nodeE, 3.0));
 
-        graph.addEdge(new Edge(nodeB, nodeE, 4));
-        graph.addEdge(new Edge(nodeB, nodeC, 2));
+        graph.addEdge(new Edge(nodeB, nodeE, 4.0));
+        graph.addEdge(new Edge(nodeB, nodeC, 2.0));
 
-        graph.addEdge(new Edge(nodeC, nodeD, 9));
+        graph.addEdge(new Edge(nodeC, nodeD, 9.0));
 
-        graph.addEdge(new Edge(nodeD, nodeC, 7));
+        graph.addEdge(new Edge(nodeD, nodeC, 7.0));
 
-        graph.addEdge(new Edge(nodeE, nodeB, 1));
-        graph.addEdge(new Edge(nodeE, nodeC, 8));
-        graph.addEdge(new Edge(nodeE, nodeD, 2));
+        graph.addEdge(new Edge(nodeE, nodeB, 1.0));
+        graph.addEdge(new Edge(nodeE, nodeC, 8.0));
+        graph.addEdge(new Edge(nodeE, nodeD, 2.0));
 
         graph.addNodes(Arrays.asList(nodeA, nodeB, nodeC, nodeD, nodeE));
 
@@ -126,19 +126,19 @@ public class DijkstraShortestPathTest {
         Node nodeD = new Node("D");
         Node nodeE = new Node("E");
 
-        graph.addEdge(new Edge(nodeA, nodeB, 10));
-        graph.addEdge(new Edge(nodeA, nodeE, 3));
+        graph.addEdge(new Edge(nodeA, nodeB, 10.0));
+        graph.addEdge(new Edge(nodeA, nodeE, 3.0));
 
-        graph.addEdge(new Edge(nodeB, nodeE, 4));
-        graph.addEdge(new Edge(nodeB, nodeC, 2));
+        graph.addEdge(new Edge(nodeB, nodeE, 4.0));
+        graph.addEdge(new Edge(nodeB, nodeC, 2.0));
 
-        graph.addEdge(new Edge(nodeC, nodeD, 9));
+        graph.addEdge(new Edge(nodeC, nodeD, 9.0));
 
-        graph.addEdge(new Edge(nodeD, nodeC, 7));
+        graph.addEdge(new Edge(nodeD, nodeC, 7.0));
 
-        graph.addEdge(new Edge(nodeE, nodeB, 1));
-        graph.addEdge(new Edge(nodeE, nodeC, 8));
-        graph.addEdge(new Edge(nodeE, nodeD, 2));
+        graph.addEdge(new Edge(nodeE, nodeB, 1.0));
+        graph.addEdge(new Edge(nodeE, nodeC, 8.0));
+        graph.addEdge(new Edge(nodeE, nodeD, 2.0));
 
         graph.addNodes(Arrays.asList(nodeA, nodeB, nodeC, nodeD, nodeE));
 
@@ -170,11 +170,11 @@ public class DijkstraShortestPathTest {
         Node nodeC = new Node("C");
         Node nodeD = new Node("D");
 
-        graph.addEdge(new Edge(nodeA, nodeB, 2));
-        graph.addEdge(new Edge(nodeA, nodeC, 1));
+        graph.addEdge(new Edge(nodeA, nodeB, 2.0));
+        graph.addEdge(new Edge(nodeA, nodeC, 1.0));
 
-        graph.addEdge(new Edge(nodeB, nodeD, 1));
-        graph.addEdge(new Edge(nodeC, nodeD, 1));
+        graph.addEdge(new Edge(nodeB, nodeD, 1.0));
+        graph.addEdge(new Edge(nodeC, nodeD, 1.0));
 
         graph.addNodes(Arrays.asList(nodeA, nodeB, nodeC, nodeD));
 
@@ -206,11 +206,11 @@ public class DijkstraShortestPathTest {
         Node nodeC = new Node("C");
         Node nodeD = new Node("D");
 
-        graph.addEdge(new Edge(nodeA, nodeB, 1));
-        graph.addEdge(new Edge(nodeA, nodeC, 2));
+        graph.addEdge(new Edge(nodeA, nodeB, 1.0));
+        graph.addEdge(new Edge(nodeA, nodeC, 2.0));
 
-        graph.addEdge(new Edge(nodeB, nodeD, 1));
-        graph.addEdge(new Edge(nodeC, nodeD, 1));
+        graph.addEdge(new Edge(nodeB, nodeD, 1.0));
+        graph.addEdge(new Edge(nodeC, nodeD, 1.0));
 
         graph.addNodes(Arrays.asList(nodeA, nodeB, nodeC, nodeD));
 
@@ -242,9 +242,9 @@ public class DijkstraShortestPathTest {
         Node nodeC = new Node("C");
         Node nodeD = new Node("D");
 
-        graph.addEdge(new Edge(nodeA, nodeB, 3));
-        graph.addEdge(new Edge(nodeA, nodeC, 2));
-        graph.addEdge(new Edge(nodeA, nodeD, 1));
+        graph.addEdge(new Edge(nodeA, nodeB, 3.0));
+        graph.addEdge(new Edge(nodeA, nodeC, 2.0));
+        graph.addEdge(new Edge(nodeA, nodeD, 1.0));
 
         graph.addNodes(Arrays.asList(nodeA, nodeB, nodeC, nodeD));
 
@@ -274,7 +274,7 @@ public class DijkstraShortestPathTest {
         Node nodeB = new Node("B");
         Node nodeC = new Node("C");
 
-        graph.addEdge(new Edge(nodeA, nodeB, 3));
+        graph.addEdge(new Edge(nodeA, nodeB, 3.0));
 
         graph.addNodes(Arrays.asList(nodeA, nodeB, nodeC));
 
@@ -302,26 +302,26 @@ public class DijkstraShortestPathTest {
         Node nodeC = new Node("C");
 
         for (int i = 0; i < 5; i++) {
-            graph.addEdge(new Edge(nodeA, nodeB, 50 + i));
-            graph.addEdge(new Edge(nodeB, nodeA, 50 + i));
-            graph.addEdge(new Edge(nodeB, nodeC, 50 + i));
-            graph.addEdge(new Edge(nodeC, nodeB, 50 + i));
+            graph.addEdge(new Edge(nodeA, nodeB, 50.0 + i));
+            graph.addEdge(new Edge(nodeB, nodeA, 50.0 + i));
+            graph.addEdge(new Edge(nodeB, nodeC, 50.0 + i));
+            graph.addEdge(new Edge(nodeC, nodeB, 50.0 + i));
         }
 
-        Edge edge1 = new Edge("1", nodeA, nodeB, 1);
-        Edge edge2 = new Edge("2", nodeB, nodeA, 2);
-        Edge edge3 = new Edge("3", nodeB, nodeC, 3);
-        Edge edge4 = new Edge("4", nodeC, nodeB, 4);
+        Edge edge1 = new Edge("1", nodeA, nodeB, 1.0);
+        Edge edge2 = new Edge("2", nodeB, nodeA, 2.0);
+        Edge edge3 = new Edge("3", nodeB, nodeC, 3.0);
+        Edge edge4 = new Edge("4", nodeC, nodeB, 4.0);
         graph.addEdge(edge1);
         graph.addEdge(edge2);
         graph.addEdge(edge3);
         graph.addEdge(edge4);
 
         for (int i = 0; i < 5; i++) {
-            graph.addEdge(new Edge(nodeA, nodeB, 500 + i));
-            graph.addEdge(new Edge(nodeB, nodeA, 500 + i));
-            graph.addEdge(new Edge(nodeB, nodeC, 500 + i));
-            graph.addEdge(new Edge(nodeC, nodeB, 500 + i));
+            graph.addEdge(new Edge(nodeA, nodeB, 500.0 + i));
+            graph.addEdge(new Edge(nodeB, nodeA, 500.0 + i));
+            graph.addEdge(new Edge(nodeB, nodeC, 500.0 + i));
+            graph.addEdge(new Edge(nodeC, nodeB, 500.0 + i));
         }
 
         graph.addNodes(Arrays.asList(nodeA, nodeB, nodeC));
@@ -363,11 +363,11 @@ public class DijkstraShortestPathTest {
         Node nodeC = new Node("C");
         Node nodeD = new Node("D");
 
-        graph.addEdge(new Edge(nodeA, nodeB, 2));
-        graph.addEdge(new Edge(nodeC, nodeA, 1));
+        graph.addEdge(new Edge(nodeA, nodeB, 2.0));
+        graph.addEdge(new Edge(nodeC, nodeA, 1.0));
 
-        graph.addEdge(new Edge(nodeB, nodeD, 1));
-        graph.addEdge(new Edge(nodeC, nodeD, 1));
+        graph.addEdge(new Edge(nodeB, nodeD, 1.0));
+        graph.addEdge(new Edge(nodeC, nodeD, 1.0));
 
         graph.addNodes(Arrays.asList(nodeA, nodeB, nodeC, nodeD));
 
@@ -400,11 +400,11 @@ public class DijkstraShortestPathTest {
         Node nodeC = new Node("C");
         Node nodeD = new Node("D");
 
-        graph.addEdge(new Edge(nodeA, nodeB, 2));
-        graph.addEdge(new Edge(nodeC, nodeA, 1));
+        graph.addEdge(new Edge(nodeA, nodeB, 2.0));
+        graph.addEdge(new Edge(nodeC, nodeA, 1.0));
 
-        graph.addEdge(new Edge(nodeB, nodeD, 1));
-        graph.addEdge(new Edge(nodeC, nodeD, 1));
+        graph.addEdge(new Edge(nodeB, nodeD, 1.0));
+        graph.addEdge(new Edge(nodeC, nodeD, 1.0));
 
         graph.addNodes(Arrays.asList(nodeA, nodeB, nodeC, nodeD));
 
@@ -433,21 +433,21 @@ public class DijkstraShortestPathTest {
         graph.setIsDirected(true);
 
         Node nodeA = new Node("A");
-        Node nodeB = new Node("B", null, 50);
-        Node nodeC = new Node("C", null, 50);
-        Node nodeD = new Node("D", null, 50);
+        Node nodeB = new Node("B", null, 50.0);
+        Node nodeC = new Node("C", null, 50.0);
+        Node nodeD = new Node("D", null, 50.0);
         Node nodeE = new Node("E");
 
-        Edge edge1 = new Edge(nodeA, nodeB, 51);
-        Edge edge2 = new Edge(nodeA, nodeC, 49);
-        Edge edge3 = new Edge(nodeA, nodeD, 51);
+        Edge edge1 = new Edge(nodeA, nodeB, 51.0);
+        Edge edge2 = new Edge(nodeA, nodeC, 49.0);
+        Edge edge3 = new Edge(nodeA, nodeD, 51.0);
         graph.addEdge(edge1);
         graph.addEdge(edge2);
         graph.addEdge(edge3);
 
-        graph.addEdge(new Edge(nodeB, nodeE, 1));
-        graph.addEdge(new Edge(nodeC, nodeE, 1));
-        graph.addEdge(new Edge(nodeD, nodeE, 1));
+        graph.addEdge(new Edge(nodeB, nodeE, 1.0));
+        graph.addEdge(new Edge(nodeC, nodeE, 1.0));
+        graph.addEdge(new Edge(nodeD, nodeE, 1.0));
 
         graph.addNodes(Arrays.asList(nodeA, nodeB, nodeC, nodeD, nodeE));
 
@@ -478,21 +478,21 @@ public class DijkstraShortestPathTest {
         graph.setIsDirected(true);
 
         Node nodeA = new Node("A");
-        Node nodeB = new Node("B", 10, null);
-        Node nodeC = new Node("C", 10, null);
-        Node nodeD = new Node("D", 10, null);
+        Node nodeB = new Node("B", 10.0, null);
+        Node nodeC = new Node("C", 10.0, null);
+        Node nodeD = new Node("D", 10.0, null);
         Node nodeE = new Node("E");
 
-        Edge edge1 = new Edge(nodeA, nodeB, 5);
-        Edge edge2 = new Edge(nodeA, nodeC, 11);
-        Edge edge3 = new Edge(nodeA, nodeD, 9);
+        Edge edge1 = new Edge(nodeA, nodeB, 5.0);
+        Edge edge2 = new Edge(nodeA, nodeC, 11.0);
+        Edge edge3 = new Edge(nodeA, nodeD, 9.0);
         graph.addEdge(edge1);
         graph.addEdge(edge2);
         graph.addEdge(edge3);
 
-        graph.addEdge(new Edge(nodeB, nodeE, 1));
-        graph.addEdge(new Edge(nodeC, nodeE, 1));
-        graph.addEdge(new Edge(nodeD, nodeE, 1));
+        graph.addEdge(new Edge(nodeB, nodeE, 1.0));
+        graph.addEdge(new Edge(nodeC, nodeE, 1.0));
+        graph.addEdge(new Edge(nodeD, nodeE, 1.0));
 
         graph.addNodes(Arrays.asList(nodeA, nodeB, nodeC, nodeD, nodeE));
 
@@ -523,25 +523,25 @@ public class DijkstraShortestPathTest {
         graph.setIsDirected(true);
 
         Node nodeA = new Node("A");
-        Node nodeB = new Node("B", 10, 110);
-        Node nodeC = new Node("C", 20, 120);
-        Node nodeD = new Node("D", 30, 130);
-        Node nodeE = new Node("E", 40, 140);
+        Node nodeB = new Node("B", 10.0, 110.0);
+        Node nodeC = new Node("C", 20.0, 120.0);
+        Node nodeD = new Node("D", 30.0, 130.0);
+        Node nodeE = new Node("E", 40.0, 140.0);
         Node nodeF = new Node("F");
 
-        Edge edge1 = new Edge(nodeA, nodeB, 9);
-        Edge edge2 = new Edge(nodeA, nodeC, 121);
-        Edge edge3 = new Edge(nodeA, nodeD, 50);
-        Edge edge4 = new Edge(nodeA, nodeE, 39);
+        Edge edge1 = new Edge(nodeA, nodeB, 9.0);
+        Edge edge2 = new Edge(nodeA, nodeC, 121.0);
+        Edge edge3 = new Edge(nodeA, nodeD, 50.0);
+        Edge edge4 = new Edge(nodeA, nodeE, 39.0);
         graph.addEdge(edge1);
         graph.addEdge(edge2);
         graph.addEdge(edge3);
         graph.addEdge(edge4);
 
-        graph.addEdge(new Edge(nodeB, nodeF, 1));
-        graph.addEdge(new Edge(nodeC, nodeF, 1));
-        graph.addEdge(new Edge(nodeD, nodeF, 1));
-        graph.addEdge(new Edge(nodeE, nodeF, 1));
+        graph.addEdge(new Edge(nodeB, nodeF, 1.0));
+        graph.addEdge(new Edge(nodeC, nodeF, 1.0));
+        graph.addEdge(new Edge(nodeD, nodeF, 1.0));
+        graph.addEdge(new Edge(nodeE, nodeF, 1.0));
 
         graph.addNodes(Arrays.asList(nodeA, nodeB, nodeC, nodeD, nodeE, nodeF));
 
@@ -579,23 +579,23 @@ public class DijkstraShortestPathTest {
         Node node10 = new Node("10");
         Node node11 = new Node("11");
 
-        Edge edge1 = new Edge(node1, node4, 3);
-        Edge edge2 = new Edge(node1, node6, 7);
-        Edge edge3 = new Edge(node2, node4, 13);
-        Edge edge4 = new Edge(node2, node7, 37);
-        Edge edge5 = new Edge(node3, node6, 11);
-        Edge edge6 = new Edge(node4, node8, 12);
-        Edge edge7 = new Edge(node5, node2, 12);
-        Edge edge8 = new Edge(node5, node4, 3);
-        Edge edge9 = new Edge(node5, node8, 70);
-        Edge edge10 = new Edge(node6, node9, 59);
-        Edge edge11 = new Edge(node7, node8, 27);
-        Edge edge12 = new Edge(node7, node10, 70);
-        Edge edge13 = new Edge(node8, node7, 16);
-        Edge edge14 = new Edge(node8, node9, 57);
-        Edge edge15 = new Edge(node9, node7, 79);
-        Edge edge16 = new Edge(node9, node11, 75);
-        Edge edge17 = new Edge(node9, node10, 80);
+        Edge edge1 = new Edge(node1, node4, 3.0);
+        Edge edge2 = new Edge(node1, node6, 7.0);
+        Edge edge3 = new Edge(node2, node4, 13.0);
+        Edge edge4 = new Edge(node2, node7, 37.0);
+        Edge edge5 = new Edge(node3, node6, 11.0);
+        Edge edge6 = new Edge(node4, node8, 12.0);
+        Edge edge7 = new Edge(node5, node2, 12.0);
+        Edge edge8 = new Edge(node5, node4, 3.0);
+        Edge edge9 = new Edge(node5, node8, 70.0);
+        Edge edge10 = new Edge(node6, node9, 59.0);
+        Edge edge11 = new Edge(node7, node8, 27.0);
+        Edge edge12 = new Edge(node7, node10, 70.0);
+        Edge edge13 = new Edge(node8, node7, 16.0);
+        Edge edge14 = new Edge(node8, node9, 57.0);
+        Edge edge15 = new Edge(node9, node7, 79.0);
+        Edge edge16 = new Edge(node9, node11, 75.0);
+        Edge edge17 = new Edge(node9, node10, 80.0);
 
         graph.addNodes(Arrays.asList(node1, node2, node3, node4, node5, node6, node7, node8, node9, node10, node11));
 

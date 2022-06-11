@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -48,31 +49,32 @@ public class FlightControllerTest {
     private ObjectMapper objectMapper = new ObjectMapper();
     private Faker faker = new Faker();
 
-    @Test
-    void canListFlights() throws Exception {
-        // given
-        // Flight f = flightRepository.save(Flight.builder().build());
-        // List<Flight> fs = flightRepository.findAll();
-        // when(flightRepository.findAll()).thenReturn(Arrays.asList(f));
-        // flightService.createFlight(Flight.builder().build());
+    // @Disabled
+    // @Test
+    // void canListFlights() throws Exception {
+    //     // given
+    //     // Flight f = flightRepository.save(Flight.builder().build());
+    //     // List<Flight> fs = flightRepository.findAll();
+    //     // when(flightRepository.findAll()).thenReturn(Arrays.asList(f));
+    //     // flightService.createFlight(Flight.builder().build());
 
-        // Map<String, String> body = new HashMap<>();
-        // body.put("name", faker.company().name());
-        // body.put("logo_url", faker.company().logo());
+    //     // Map<String, String> body = new HashMap<>();
+    //     // body.put("name", faker.company().name());
+    //     // body.put("logo_url", faker.company().logo());
 
-        // when
-        ResultActions resultAction = mockMvc.perform(
-                get("/api/flights")
-                        .accept(MediaType.APPLICATION_JSON));
+    //     // when
+    //     ResultActions resultAction = mockMvc.perform(
+    //             get("/api/flights")
+    //                     .accept(MediaType.APPLICATION_JSON));
 
-        // then
-        resultAction.andExpect(status().isOk());
+    //     // then
+    //     resultAction.andExpect(status().isOk());
 
-        String result = resultAction.andReturn().getResponse().getContentAsString();
-        // DocumentContext jp = JsonPath.parse(result);
+    //     String result = resultAction.andReturn().getResponse().getContentAsString();
+    //     // DocumentContext jp = JsonPath.parse(result);
 
-        // assertThat(jp.read("$.[0].kind").toString()).isEqualTo("flight");
+    //     // assertThat(jp.read("$.[0].kind").toString()).isEqualTo("flight");
 
-        return;
-    }
+    //     return;
+    // }
 }

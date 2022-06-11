@@ -57,6 +57,12 @@ public class Airport {
 
     @Column(nullable = false)
     private String city;
+
+    @Column(nullable = false, name = "coordinate_x")
+    private Double coordinateX;
+
+    @Column(nullable = false, name = "coordinate_y")
+    private Double coordinateY;
     
 	@Column(name = "created_at", updatable = false)
 	@CreationTimestamp
