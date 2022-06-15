@@ -6,7 +6,7 @@ Java Spring Boot REST application for flight booking.
 - Java
 - Spring Boot
 - REST API
-- Dijsktra Algorithm
+- Dijkstra Algorithm
 - Swagger UI
 
 ## 🎯 Motivation
